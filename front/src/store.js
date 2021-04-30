@@ -25,12 +25,10 @@ const reducer = combineReducers({
   deleteBook: deleteBookReducer,
   updateMember: updateMemberReducer,
   updateBook: updateBookReducer,
-  deleteBook: deleteBookReducer,
   deleteMember: deleteMemberReducer,
   transactionList: transactionListReducer,
 
   loginAdmin: loginAdminReducer,
-  updateAdmin: updateAdminReducer,
 });
 
 const adminInfoFromStorage = localStorage.getItem("adminInfo")

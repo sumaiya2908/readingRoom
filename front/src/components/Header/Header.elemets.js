@@ -29,5 +29,5 @@ export const NavBtn = styled.button`
   padding: 0.4rem 1rem;
   border: 0;
   font-size: 1.3rem;
-  margin-right: ${({home}) => (home?'1rem':'null')}
+  margin-right: ${({home}) => (home?'1rem':'null')};
 `;

@@ -1,15 +1,16 @@
+import axios from 'axios';
 export const memberList = () => async (dispatch, getState) => {
     try {
       dispatch({ type: 'MEMBER_LIST_REQUEST' });
   
       const {
-        userLogin: { memberInfo },
+        adminLogin: { adminInfo },
       } = getState();
   
       const config = {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${memberInfo.token}`,
+          Authorization: `Bearer ${adminInfo.token}`,
         },
       };
   
@@ -21,12 +22,40 @@ export const memberList = () => async (dispatch, getState) => {
       });
     } catch (error) {
       dispatch({
-        type:'MEMBER_LIST_REQUEST',
+        type:'MEMBER_LIST_FAIL',
         payload: error.response && error.response.data.message ? error.response.data.message : error.message,
       });
     }
   };
   
+  export const bookList = () => async (dispatch, getState) => {
+    try {
+      dispatch({ type: 'BOOK_LIST_REQUEST' });
+  
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+  
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
+  
+      const { data } = await axios.get(`/api/books/`, config);
+  
+      dispatch({
+        type:'BOOK_LIST_SUCCESS',
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type:'BOOK_LIST_FAIL',
+        payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+      });
+    }
+  };
   export const memberUpdate = (member) => async (dispatch, getState) => {
     try {
       dispatch({
@@ -44,7 +73,7 @@ export const memberList = () => async (dispatch, getState) => {
         },
       };
   
-      const { data } = await axios.put(`/api/member/${member._id}`, member, config);
+      const { data } = await axios.put(`/api/members/${member._id}`, member, config);
   
       dispatch({
         type:'UPDATE_MEMBER_SUCCESS',
@@ -76,7 +105,7 @@ export const memberList = () => async (dispatch, getState) => {
         },
       };
   
-      const { data } = await axios.delete(`/api/member/${id}`, config);
+      const { data } = await axios.delete(`/api/members/${id}`, config);
   
       dispatch({
         type: 'DELETE_MEMBER_SUCCESS',
@@ -107,7 +136,7 @@ export const memberList = () => async (dispatch, getState) => {
         },
       };
   
-      const { data } = await axios.put(`/api/products/${book._id}`, book, config);
+      const { data } = await axios.put(`/api/books/${book._id}`, book, config);
   
       dispatch({
         type: 'UPDATE_BOOK_SUCCESS',
@@ -233,6 +262,35 @@ export const memberList = () => async (dispatch, getState) => {
     } catch (error) {
       dispatch({
         type: 'TRANSACTION_LIST_FAIL',
+        payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+      });
+    }
+  };
+
+  export const getAdminDetails = (id) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: actions.ADMIN_DETAILS_REQUEST });
+  
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+  
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
+  
+      const { data } = await axios.get(`${url}/api/admin/${id}`, config);
+  
+      dispatch({
+        type: actions.ADMIN_DETAILS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: actions.ADMIN_DETAILS_FAIL,
         payload: error.response && error.response.data.message ? error.response.data.message : error.message,
       });
     }

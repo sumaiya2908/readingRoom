@@ -2,30 +2,39 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CopyRight from "../../components/CopyRight";
 import Header from "../../components/Header/Header";
-import { NavBtn } from "../../components/Header/Header.elemets";
 import {
   ColorText,
   Hero,
   HeroBtn,
   HeroText,
   HomeContainer,
+  NavBtn,
 } from "./HomePage.elements";
 
-function HomePage() {
+function HomeAdmin() {
   return (
     <HomeContainer>
       <Header />
-      <Hero>
+      <Hero admin>
         <HeroText>
           Welcome to{" "}
           <ColorText>
-            Online Library <br /> Management
+            <br/>Online Library <br /> Management
           </ColorText>{" "}
           System
         </HeroText>
-        <HeroBtn>
+        <HeroBtn admin>
           <Link to="/admin-login">
-            <NavBtn home>Admin Login</NavBtn>
+            <NavBtn home>Member List</NavBtn>
+          </Link>
+          <Link to="/admin-login">
+            <NavBtn home>Book list</NavBtn>
+          </Link>
+          <Link to="/admin-login">
+            <NavBtn home>Add a member</NavBtn>
+          </Link>
+          <Link to="/admin-login">
+            <NavBtn home>Add a book</NavBtn>
           </Link>
         </HeroBtn>
       </Hero>
@@ -34,4 +43,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default HomeAdmin;
